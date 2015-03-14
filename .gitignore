@@ -1,0 +1,4 @@
+*.zip
+node_modules
+build
+tmp
