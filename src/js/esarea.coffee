@@ -100,7 +100,7 @@ getCurrentLine = (e) ->
     start: startPos,
     end:   endPos,
     caret: pos.start,
-    endOfLine: (pos.start == endPos)
+    endOfLine: !$.trim(text.slice(pos.start, endPos))
   }
 
 getPrevLine = (e) ->
