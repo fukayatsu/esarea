@@ -1,3 +1,5 @@
+return if location.host.match /(qiita\.com|esa\.io|lvh\.me)/
+
 $(document).on 'keydown', 'textarea', (e) ->
   switch (e.which || e.keyCode)
     when 9

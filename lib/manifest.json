@@ -1,7 +1,7 @@
 {
   "name": "esarea",
   "short_name": "esarea",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "manifest_version": 2,
   "description": "Enjoy (\\( ⁰⊖⁰)/) markdown",
   "icons": {
@@ -10,7 +10,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://github.com/*"],
+      "matches": ["<all_urls>"],
       "js": [
         "js/jquery-2.1.3.min.js",
         "js/jquery.selection.js",
