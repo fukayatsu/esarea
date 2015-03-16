@@ -44,6 +44,7 @@ handleTabKey = (e) ->
 handleEnterKey = (e) ->
   return if e.metaKey || e.ctrlKey || e.shiftKey # for cmd + enter
   return unless currentLine = getCurrentLine(e)
+  return if currentLine.start == currentLine.caret
   if match = currentLine.text.match(/^(\s*(?:-|\+|\*) (?:\[(?:x| )\] )?)\s*\S/)
     # smart indent with list
     if currentLine.text.match(/^(\s*(?:-|\+|\*) (?:\[(?:x| )\] ))\s*$/)
