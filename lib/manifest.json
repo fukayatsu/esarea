@@ -1,7 +1,7 @@
 {
   "name": "esarea",
   "short_name": "esarea",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "manifest_version": 2,
   "description": "Enjoy (\\( ⁰⊖⁰)/) markdown",
   "icons": {
