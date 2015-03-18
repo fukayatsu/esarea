@@ -1,14 +1,22 @@
 return if location.host.match /(qiita\.com|esa\.io|lvh\.me)/
 
+suggesting = null
+$(document).on 'keyup', 'textarea', (e) ->
+  if location.host.match /github\.com/
+    suggesting = !!$('ul.suggestions:visible').length
+  return
+
 $(document).on 'keydown', 'textarea', (e) ->
+  return if suggesting
+
   switch (e.which || e.keyCode)
     when 9
-      return if location.host.match(/(github\.com)/) and $('ul.suggestions').css('display') isnt 'none'
       handleTabKey(e)
     when 13
       handleEnterKey(e)
     when 32
       handleSpaceKey(e)
+  return
 
 handleTabKey = (e) ->
   e.preventDefault()
