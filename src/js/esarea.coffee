@@ -3,6 +3,7 @@ return if location.host.match /(qiita\.com|esa\.io|lvh\.me)/
 $(document).on 'keydown', 'textarea', (e) ->
   switch (e.which || e.keyCode)
     when 9
+      return if location.host.match(/(github\.com)/) and $('ul.suggestions').css('display') isnt 'none'
       handleTabKey(e)
     when 13
       handleEnterKey(e)
