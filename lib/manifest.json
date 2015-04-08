@@ -1,9 +1,9 @@
 {
   "name": "esarea",
   "short_name": "esarea",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "manifest_version": 2,
-  "description": "Enjoy (\\( ⁰⊖⁰)/) markdown",
+  "description": "Enjoy (\\( ⁰⊖⁰)/) markdown on any textarea",
   "icons": {
     "48":  "images/icon_48.png",
     "128": "images/icon_128.png"
