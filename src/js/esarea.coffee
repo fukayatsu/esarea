@@ -4,6 +4,8 @@ suggesting = null
 $(document).on 'keyup', 'textarea', (e) ->
   if location.host.match /github\.com/
     suggesting = !!$('ul.suggestions:visible').length
+  else if location.host.match /idobata\.io/
+    suggesting = !!$('.atwho-view:visible').length
   return
 
 $(document).on 'keydown', 'textarea', (e) ->
