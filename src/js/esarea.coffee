@@ -66,9 +66,10 @@ handleEnterKey = (e) ->
       return
     e.preventDefault()
     listMark = match[1]
-    if listMarkMatch = listMark.match /^(\d+)\./
-      num = parseInt(listMarkMatch[1])
-      listMark = listMark.replace(/^\d+/, num + 1) unless num == 1
+    if listMarkMatch = listMark.match /^(\s*)(\d+)\./
+      indent = listMarkMatch[1]
+      num    = parseInt(listMarkMatch[2])
+      listMark = listMark.replace(/\s*\d+/, "#{indent}#{num + 1}") unless num == 1
     $(e.target).selection('insert', {text: "\n" + listMark, mode: 'before'});
   else if currentLine.text.match(/^(\s*(?:-|\+|\*|\d+\.) )/)
     # remove list
