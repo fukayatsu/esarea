@@ -58,15 +58,15 @@ handleEnterKey = (e) ->
   return if e.metaKey || e.ctrlKey || e.shiftKey # for cmd + enter
   return unless currentLine = getCurrentLine(e)
   return if currentLine.start == currentLine.caret
-  if match = currentLine.text.match(/^(\s*(?:-|\+|\*) (?:\[(?:x| )\] )?)\s*\S/)
+  if match = currentLine.text.match(/^(\s*(?:-|\+|\*|1\.) (?:\[(?:x| )\] )?)\s*\S/)
     # smart indent with list
-    if currentLine.text.match(/^(\s*(?:-|\+|\*) (?:\[(?:x| )\] ))\s*$/)
+    if currentLine.text.match(/^(\s*(?:-|\+|\*|1\.) (?:\[(?:x| )\] ))\s*$/)
       # empty task list
       $(e.target).selection('setPos', {start: currentLine.start, end: (currentLine.end - 1)})
       return
     e.preventDefault()
     $(e.target).selection('insert', {text: "\n" + match[1], mode: 'before'});
-  else if currentLine.text.match(/^(\s*(?:-|\+|\*) )/)
+  else if currentLine.text.match(/^(\s*(?:-|\+|\*|1\.) )/)
     # remove list
     $(e.target).selection('setPos', {start: currentLine.start, end: (currentLine.end)})
   else if currentLine.text.match(/^.*\|\s*$/)
@@ -90,7 +90,7 @@ handleEnterKey = (e) ->
 handleSpaceKey = (e) ->
   return unless e.shiftKey && e.altKey
   return unless currentLine = getCurrentLine(e)
-  if match = currentLine.text.match(/^(\s*)(-|\+|\*) (?:\[(x| )\] )(.*)/)
+  if match = currentLine.text.match(/^(\s*)(-|\+|\*|1\.) (?:\[(x| )\] )(.*)/)
     e.preventDefault()
     checkMark = if match[3] == ' ' then 'x' else ' '
     replaceTo = "#{match[1]}#{match[2]} [#{checkMark}] #{match[4]}"
