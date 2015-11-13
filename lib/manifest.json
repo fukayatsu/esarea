@@ -1,7 +1,7 @@
 {
   "name": "esarea",
   "short_name": "esarea",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "manifest_version": 2,
   "description": "Enjoy (\\( ⁰⊖⁰)/) markdown on any textarea",
   "icons": {
