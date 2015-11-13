@@ -65,7 +65,7 @@ handleEnterKey = (e) ->
       $(e.target).selection('setPos', {start: currentLine.start, end: (currentLine.end - 1)})
       return
     e.preventDefault()
-    listMark = match[1]
+    listMark = match[1].replace(/\[x\]/, '[ ]')
     if listMarkMatch = listMark.match /^(\s*)(\d+)\./
       indent = listMarkMatch[1]
       num    = parseInt(listMarkMatch[2])
