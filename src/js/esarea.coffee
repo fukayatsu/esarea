@@ -1,4 +1,4 @@
-return if location.host.match(/qiita\.com|esa\.io|docbase\.io|pplog\.net|lvh\.me|slack\.com/)
+return if location.host.match(/qiita\.com|esa\.io|docbase\.io|pplog\.net|lvh\.me|slack\.com|mimemo\.io/)
 
 suggesting = null
 $(document).on 'keyup', 'textarea', (e) ->
