@@ -35,8 +35,12 @@ handleTabKey = (e) ->
       # re indent
       reindentedText  = $(e.target).selection().replace(/^ {1,4}/gm, '')
       reindentedCount = $(e.target).selection().length - reindentedText.length
-      $(e.target).selection('replace', {text: reindentedText, mode: 'before'});
-      $(e.target).selection('setPos', {start: pos.start - reindentedCount, end: pos.start - reindentedCount}) if currentLine
+      replaceText e.target, reindentedText
+      if currentLine
+        $(e.target).selection('setPos', {start: pos.start - reindentedCount, end: pos.start - reindentedCount})
+      else
+        $(e.target).selection('setPos', {start: pos.start, end: pos.start + reindentedText.length})
+
   else
     if currentLine && currentLine.text.charAt(0) == '|'
       # next cell in table
@@ -47,11 +51,12 @@ handleTabKey = (e) ->
         $(e.target).selection('setPos', {start: newPos + 2, end: newPos + 2 })
     else
       # indent
-      $(e.target).selection('replace', {
-        text: '    ' + $(e.target).selection().split("\n").join("\n    "),
-        mode: 'before'
-      });
-      $(e.target).selection('setPos', {start: pos.start + 4, end: pos.start + 4}) if currentLine
+      indentedText = '    ' + $(e.target).selection().split("\n").join("\n    ")
+      replaceText e.target, indentedText
+      if currentLine
+        $(e.target).selection('setPos', {start: pos.start + 4, end: pos.start + 4})
+      else
+        $(e.target).selection('setPos', {start: pos.start, end: pos.start + indentedText.length})
   $(e.target).trigger('input')
 
 handleEnterKey = (e) ->
@@ -70,7 +75,7 @@ handleEnterKey = (e) ->
       indent = listMarkMatch[1]
       num    = parseInt(listMarkMatch[2])
       listMark = listMark.replace(/\s*\d+/, "#{indent}#{num + 1}") unless num == 1
-    $(e.target).selection('insert', {text: "\n" + listMark, mode: 'before'});
+    replaceText e.target, "\n" + listMark
   else if currentLine.text.match(/^(\s*(?:-|\+|\*|\d+\.) )/)
     # remove list
     $(e.target).selection('setPos', {start: currentLine.start, end: (currentLine.end)})
@@ -85,10 +90,10 @@ handleEnterKey = (e) ->
     row.push "|" for match in currentLine.text.match(/\|/g)
     prevLine = getPrevLine(e)
     if !prevLine || (!currentLine.text.match(/---/) && !prevLine.text.match(/\|/g))
-      $(e.target).selection('insert', {text: "\n" + row.join(' --- ') + "\n" + row.join('  '), mode: 'before'});
+      replaceText e.target, "\n" + row.join(' --- ') + "\n" + row.join('  ')
       $(e.target).selection('setPos', {start: currentLine.caret + 6 * row.length - 1, end: currentLine.caret + 6 * row.length - 1})
     else
-      $(e.target).selection('insert', {text: "\n" + row.join('  '), mode: 'before'});
+      replaceText e.target, "\n" + row.join('  ')
       $(e.target).selection('setPos', {start: currentLine.caret + 3, end: currentLine.caret + 3 })
   $(e.target).trigger('input')
 
@@ -100,7 +105,7 @@ handleSpaceKey = (e) ->
     checkMark = if match[3] == ' ' then 'x' else ' '
     replaceTo = "#{match[1]}#{match[2]} [#{checkMark}] #{match[4]}"
     $(e.target).selection('setPos', {start: currentLine.start, end: currentLine.end})
-    $(e.target).selection('replace', {text: replaceTo, mode: 'keep'})
+    replaceText e.target, replaceTo
     $(e.target).selection('setPos', {start: currentLine.caret, end: currentLine.caret})
     $(e.target).trigger('input')
 
@@ -133,3 +138,33 @@ getPrevLine = (e) ->
     start: startPos,
     end:   endPos
   }
+
+# @see https://mimemo.io/m/mqLXOlJe7ozQ19r
+replaceText = (target, str) ->
+  pos = $(target).selection('getPos')
+  fromIdx = pos.start
+  toIdx   = pos.end
+  inserted = false
+
+  if str
+    expectedLen = target.value.length - Math.abs(toIdx - fromIdx) + str.length
+    target.focus()
+    target.selectionStart = fromIdx
+    target.selectionEnd = toIdx
+    try
+      inserted = document.execCommand('insertText', false, str)
+    catch e
+      inserted = false
+    if inserted and (target.value.length != expectedLen or target.value.substr(fromIdx, str.length) != str)
+      #firefoxでなぜかうまくいってないくせにinsertedがtrueになるので失敗を検知してfalseに…
+      inserted = false
+  if !inserted
+    try
+      document.execCommand 'ms-beginUndoUnit'
+    catch e
+    value = target.value
+    target.value = '' + value.substring(0, fromIdx) + str + value.substring(toIdx)
+    try
+      document.execCommand 'ms-endUndoUnit'
+    catch e
+  return
