@@ -76,6 +76,8 @@ handleEnterKey = (e) ->
       num    = parseInt(listMarkMatch[2])
       listMark = listMark.replace(/\s*\d+/, "#{indent}#{num + 1}") unless num == 1
     replaceText e.target, "\n" + listMark
+    caretTo = currentLine.caret + listMark.length + 1
+    $(e.target).selection('setPos', {start: caretTo, end: caretTo})
   else if currentLine.text.match(/^(\s*(?:-|\+|\*|\d+\.) )/)
     # remove list
     $(e.target).selection('setPos', {start: currentLine.start, end: (currentLine.end)})
