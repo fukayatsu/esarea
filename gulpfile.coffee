@@ -2,7 +2,6 @@ gulp        = require 'gulp'
 coffee      = require 'gulp-coffee'
 del         = require 'del'
 zip         = require 'gulp-zip'
-runSequence = require 'run-sequence'
 download    = require 'gulp-download'
 
 paths =
@@ -30,7 +29,7 @@ gulp.task 'zip', ->
     .pipe(zip('build.zip'))
     .pipe(gulp.dest('./'))
 
-gulp.task 'build',   ['copy', 'coffee']
-gulp.task 'rebuild', -> runSequence('clean', 'build')
-gulp.task 'release', -> runSequence('clean', 'build', 'zip')
-gulp.task 'default', -> runSequence('clean', 'build', 'watch')
+gulp.task 'build',   gulp.parallel('copy', 'coffee')
+gulp.task 'rebuild', -> gulp.series('clean', 'build')
+gulp.task 'release', -> gulp.series('clean', 'build', 'zip')
+gulp.task 'default', -> gulp.series('clean', 'build', 'watch')
