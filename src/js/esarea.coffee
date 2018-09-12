@@ -1,3 +1,6 @@
+global.jQuery = $ = require('jquery')
+require('jquery.selection/src/jquery.selection.js')
+
 return if location.host.match(/qiita\.com|esa\.io|docbase\.io|pplog\.net|lvh\.me|slack\.com|mimemo\.io|kibe\.la/)
 
 suggesting = null
@@ -169,4 +172,5 @@ replaceText = (target, str) ->
     try
       document.execCommand 'ms-endUndoUnit'
     catch e
+  $(target).trigger('blur').trigger('focus')
   return

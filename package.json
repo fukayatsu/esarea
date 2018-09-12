@@ -1,4 +1,5 @@
 {
+  "private": true,
   "name": "esarea",
   "version": "1.0.0",
   "description": "Enjoy (\\\\( ⁰⊖⁰)/) markdown!",
@@ -7,7 +8,7 @@
     "build": "gulp build",
     "rebuild": "gulp rebuild",
     "release": "gulp release",
-    "watch": "gulp default"
+    "watch": "gulp watch"
   },
   "repository": {
     "type": "git",
@@ -23,15 +24,20 @@
     "url": "https://github.com/fukayatsu/esarea/issues"
   },
   "homepage": "https://github.com/fukayatsu/esarea",
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "jquery.selection": "https://github.com/fukayatsu/jquery.selection"
+  },
   "devDependencies": {
-    "coffee-script": "^1.9.1",
-    "del": "^1.1.1",
-    "gulp": "^3.8.11",
-    "gulp-coffee": "^2.3.1",
-    "gulp-concat": "^2.5.2",
-    "gulp-download": "0.0.1",
-    "gulp-uglify": "^1.1.0",
-    "gulp-zip": "^2.0.3",
-    "run-sequence": "^1.0.2"
+    "browserify": "^16.2.2",
+    "coffeeify": "^3.0.1",
+    "coffeescript": "^2.3.1",
+    "del": "^3.0.0",
+    "gulp": "^4.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-download": "^0.0.1",
+    "gulp-uglify-es": "^1.0.4",
+    "gulp-zip": "^4.2.0",
+    "vinyl-source-stream": "^2.0.0"
   }
 }
