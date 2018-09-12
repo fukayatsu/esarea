@@ -1,7 +1,6 @@
 gulp        = require 'gulp'
 del         = require 'del'
 zip         = require 'gulp-zip'
-download    = require 'gulp-download'
 browserify  = require('browserify')
 source      = require('vinyl-source-stream')
 uglify      = require('gulp-uglify-es').default
