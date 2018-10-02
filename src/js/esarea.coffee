@@ -28,12 +28,13 @@ handleTabKey = (e) ->
   currentLine = getCurrentLine(e)
   text = $(e.target).val()
   pos  = $(e.target).selection('getPos')
-  $(e.target).selection('setPos', {start: currentLine.start, end: (currentLine.end - 1)}) if currentLine
+  $(e.target).selection('setPos', {start: currentLine.start, end: currentLine.end}) if currentLine
   if e.shiftKey
     if currentLine && currentLine.text.charAt(0) == '|'
       # prev cell in table
       newPos = text.lastIndexOf('|', pos.start - 1)
-      $(e.target).selection('setPos', {start: newPos - 1, end: newPos - 1}) if newPos > 0
+      newPos -= 1 if newPos > 1
+      $(e.target).selection('setPos', {start: newPos, end: newPos})
     else
       # re indent
       reindentedText  = $(e.target).selection().replace(/^ {1,4}/gm, '')
