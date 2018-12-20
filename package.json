@@ -29,7 +29,7 @@
     "jquery.selection": "https://github.com/fukayatsu/jquery.selection"
   },
   "devDependencies": {
-    "browserify": "^16.2.2",
+    "browserify": "^16.2.3",
     "coffeeify": "^3.0.1",
     "coffeescript": "^2.3.1",
     "del": "^3.0.0",
