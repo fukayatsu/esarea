@@ -1,7 +1,7 @@
 global.jQuery = $ = require('jquery')
 require('jquery.selection/src/jquery.selection.js')
 
-return if location.host.match(/qiita\.com|esa\.io|docbase\.io|pplog\.net|lvh\.me|slack\.com|mimemo\.io|kibe\.la/)
+return if location.host.match(/qiita\.com|esa\.io|docbase\.io|pplog\.net|lvh\.me|slack\.com|mimemo\.io|kibe\.la|hackmd\.io/)
 
 suggesting = null
 $(document).on 'keyup', 'textarea', (e) ->
