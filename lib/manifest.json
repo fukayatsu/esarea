@@ -1,19 +1,17 @@
 {
   "name": "esarea",
   "short_name": "esarea",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "manifest_version": 2,
   "description": "Enjoy (\\( ⁰⊖⁰)/) markdown on any textarea",
   "icons": {
-    "48":  "images/icon_48.png",
+    "48": "images/icon_48.png",
     "128": "images/icon_128.png"
   },
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": [
-        "js/bundle.js"
-      ],
+      "js": ["js/bundle.js"],
       "all_frames": true
     }
   ]
