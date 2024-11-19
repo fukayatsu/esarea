@@ -19,3 +19,14 @@ This markdown assist is disabled on some services which already have markdown as
   - toggle tasklist status of current line
     - tasklist: `- [x] foo`
 
+# development
+
+```
+$ npm install
+$ ./node_modules/gulp/bin/gulp.js
+```
+
+# TODO
+
+- Drop CoffeeScript
+- Drop gulp.js
