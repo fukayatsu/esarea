@@ -3,30 +3,28 @@ require('jquery.selection/src/jquery.selection.js')
 
 return if location.host.match(/qiita\.com|esa\.io|docbase\.io|pplog\.net|lvh\.me|slack\.com|mimemo\.io|kibe\.la|hackmd\.io|savanna\.io|scrapbox\.io|cosen\.se/)
 
-textareaList = $('textarea:not([data-esarea-disabled="true"])')
-return if textareaList.length == 0
+selector = 'textarea:not([data-esarea-disabled="true"])'
 
 suggesting = null
 
-textareaList.each ->
-  $(this).keyup (e) ->
-    if location.host.match /github\.com/
-      suggesting = !!$('ul.suggestions:visible').length
-    else if location.host.match /idobata\.io/
-      suggesting = !!$('.atwho-view:visible').length
-    return
+$(document).on 'keyup', selector,  (e) ->
+  if location.host.match /github\.com/
+    suggesting = !!$('ul.suggestions:visible').length
+  else if location.host.match /idobata\.io/
+    suggesting = !!$('.atwho-view:visible').length
+  return
 
-  $(this).keydown (e) ->
-    return if suggesting
+$(document).on 'keydown', selector, (e) ->
+  return if suggesting
 
-    switch (e.which || e.keyCode)
-      when 9
-        handleTabKey(e)
-      when 13
-        handleEnterKey(e)
-      when 32
-        handleSpaceKey(e)
-    return
+  switch (e.which || e.keyCode)
+    when 9
+      handleTabKey(e)
+    when 13
+      handleEnterKey(e)
+    when 32
+      handleSpaceKey(e)
+  return
 
 handleTabKey = (e) ->
   e.preventDefault()
