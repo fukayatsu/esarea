@@ -9,7 +9,7 @@ paths =
   lib: 'lib/**/*.*'
 
 gulp.task 'copy', ->
-  gulp.src(paths.lib)
+  gulp.src(paths.lib, { encoding: false })
     .pipe(gulp.dest('build'))
 
 gulp.task 'coffee', ->
